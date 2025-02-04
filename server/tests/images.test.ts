@@ -48,11 +48,11 @@ describe('saveImage API Endpoint', () => {
             .attach('file', mockFile, 'test.png')
             .field('expiration', new Date(ex + 10000).toString());
 
-        console.log(res.body); // Debugging step
+        console.log(res.body);
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('File uploaded successfully');
         expect(schedule.scheduleJob).toHaveBeenCalled();
-        expect(schedule.scheduleJob.mock.calls.length).toBeGreaterThan(0); // Ensure it was actually called
+        expect(schedule.scheduleJob.mock.calls.length).toBeGreaterThan(0);
 
         uploadedFileName = res.body.filePath.split('/').pop();
         console.log(`Captured uploaded filename: ${uploadedFileName}`);
@@ -78,7 +78,7 @@ describe('saveImage API Endpoint', () => {
         
         await new Promise<void>((resolve) => {
             setImmediate(async () => {
-                await schedule.scheduleJob.mock.calls[0][1](); // Ensure callback runs
+                await schedule.scheduleJob.mock.calls[0][1]();
                 resolve();
             });
         });
